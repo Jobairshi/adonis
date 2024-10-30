@@ -10,12 +10,11 @@
 const RedisController = () => import('#controllers/redis_controller')
 const RoutersController = () => import('#controllers/routers_controller')
 const PostsController = () => import('#controllers/posts_controller')
+const BisnosController = () => import('#controllers/bisnos_controller')
 import router from '@adonisjs/core/services/router'
 
 router.on('/').render('pages/home')
-router.get('/about', async (ctx) => {
-  return ctx.view.render('pages/movies')
-})
+router.get('/about', [BisnosController, 'bisnobhai'])
 
 router.delete('/redis-delete', [RedisController, 'delete']).as('redis.delete')
 
