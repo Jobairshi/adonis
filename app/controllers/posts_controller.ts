@@ -1,3 +1,4 @@
+import Userpost from '#models/post'
 import { createUserPostValidator } from '#validators/userpost'
 import { HttpContext } from '@adonisjs/core/http'
 import db from '@adonisjs/lucid/services/db'
@@ -19,12 +20,13 @@ export default class PostsController {
   }
   async addPostDB({ request, response }: HttpContext) {
     const userData = request.body()
-    // const payload  = await createUserPostValidator(userData)
+    const payload = await createUserPostValidator.validate(userData)
+    const insertINtodata = await Userpost.create(payload)
+    return insertINtodata
   }
   async GetPost({ response }: HttpContext) {
     response.status(200).send(this.userdata)
   }
-
 
   async AddPost({ request, response }: HttpContext) {
     const data = request.only(['id', 'name'])
