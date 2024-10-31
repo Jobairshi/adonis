@@ -12,8 +12,16 @@ const RoutersController = () => import('#controllers/routers_controller')
 const PostsController = () => import('#controllers/posts_controller')
 const BisnosController = () => import('#controllers/bisnos_controller')
 import router from '@adonisjs/core/services/router'
+import { HttpContext } from '@adonisjs/core/http'
 
-router.on('/').render('pages/home')
+router.get('/req', async (ctx: HttpContext) => {
+  // console.log(ctx.auth)
+  ctx.response.send(ctx.request)
+})
+router.get('/res', async (ctx: HttpContext) => {
+  // console.log(ctx.auth)
+  ctx.response.send(ctx.session)
+})
 router.get('/about', [BisnosController, 'bisnobhai'])
 
 router.delete('/redis-delete', [RedisController, 'delete']).as('redis.delete')
@@ -34,3 +42,9 @@ router.post('/update-post', [PostsController, 'UpdatePost'])
 
 router.get('/get-userpost', [PostsController, 'getPostDB'])
 router.post('/add-userpost', [PostsController, 'addPostDB'])
+router.post('/delete-userpost', [PostsController, 'deletePostDb'])
+router.post('/update-userpost', [PostsController, 'updatePostDb'])
+router.get('/get-limit-userpost/page/:page/limit/:limit/category/:category', [
+  PostsController,
+  'getLimitedData',
+])
