@@ -44,7 +44,4 @@ router.get('/get-userpost', [PostsController, 'getPostDB'])
 router.post('/add-userpost', [PostsController, 'addPostDB'])
 router.post('/delete-userpost', [PostsController, 'deletePostDb'])
 router.post('/update-userpost', [PostsController, 'updatePostDb'])
-router.get('/get-limit-userpost/page/:page/limit/:limit/category/:category', [
-  PostsController,
-  'getLimitedData',
-])
+router.get('/get-limit-userpost', [PostsController, 'getLimitedData'])

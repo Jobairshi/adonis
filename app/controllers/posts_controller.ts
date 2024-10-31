@@ -19,20 +19,21 @@ export default class PostsController {
   async getPostDB({ response }: HttpContext) {
     try {
       const userData = await Userpost.query().preload('category', (q) => q.select('name'))
-      response.status(200).send(userData)
+      const fetchData = await db
+        .from('userposts as u')
+        .join('categories as c', 'c.id', 'u.cat_id')
+        .select('c.id', 'u.content', 'c.name')
+      response.status(200).send(fetchData)
     } catch (error) {
       response.status(500).send('erroeore')
     }
   }
   async getLimitedData({ request, response }: HttpContext) {
-    const params = request.params()
-    const limit = params.limit
-    const page = params.page
-    const category = params.category
-    const userpost = await db
-      .from('userposts')
-      .where('category', category)
-      .paginate(page, Number(limit))
+    const limit = Number(request.input('limit', 10))
+    const page = Number(request.input('page', 1))
+    const category = request.input('category', 1)
+    console.log(limit, page, category)
+    const userpost = await db.from('userposts').where('cat_id', category).paginate(page, limit)
     response.send(userpost)
   }
   async addPostDB({ request, response }: HttpContext) {
