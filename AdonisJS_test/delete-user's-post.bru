@@ -1,0 +1,22 @@
+meta {
+  name: delete-user's-post
+  type: http
+  seq: 2
+}
+
+delete {
+  url: http://localhost:3333/delete-userpost
+  body: json
+  auth: none
+}
+
+headers {
+  X-CSRF-TOKEN: Bprei4Go-H8kMuxleDIUifdD749ETPKHCGJo
+}
+
+body:json {
+  {
+    "post_id":4,
+    "user_id":4
+  }
+}

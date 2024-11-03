@@ -6,13 +6,15 @@
 | The routes file is used for defining the HTTP routes.
 |
 */
-
+import AutoSwagger from 'adonis-autoswagger'
 const RedisController = () => import('#controllers/redis_controller')
 const RoutersController = () => import('#controllers/routers_controller')
 const PostsController = () => import('#controllers/posts_controller')
 const BisnosController = () => import('#controllers/bisnos_controller')
 import router from '@adonisjs/core/services/router'
 import { HttpContext } from '@adonisjs/core/http'
+import swagger from '#config/swagger'
+import BasicAuthMiddleware from '#middleware/basic_auth_middleware'
 
 router.get('/req', async (ctx: HttpContext) => {
   // console.log(ctx.auth)
@@ -35,13 +37,12 @@ router.get('/csrf', async ({ request, response }) => {
   return request.csrfToken
 })
 
-router.get('/get-user', [PostsController, 'GetPost'])
-router.post('/add-post', [PostsController, 'AddPost'])
-router.post('/delete-post', [PostsController, 'DeletePost'])
-router.post('/update-post', [PostsController, 'UpdatePost'])
-
 router.get('/get-userpost', [PostsController, 'getPostDB'])
 router.post('/add-userpost', [PostsController, 'addPostDB'])
-router.post('/delete-userpost', [PostsController, 'deletePostDb'])
-router.post('/update-userpost', [PostsController, 'updatePostDb'])
+router.delete('/delete-userpost', [PostsController, 'deletePostDb'])
+router.put('/update-userpost', [PostsController, 'updatePostDb'])
+router.get('/get-comment', [PostsController, 'getComment'])
 router.get('/get-limit-userpost', [PostsController, 'getLimitedData'])
+router.post('/add-comment', [PostsController, 'addComment'])
+router.delete('/delete-comment', [PostsController, 'deleteComment'])
+router.post('/toggle-reaction', [PostsController, 'toggleReaction'])

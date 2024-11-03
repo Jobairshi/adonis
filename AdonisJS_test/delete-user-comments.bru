@@ -1,0 +1,22 @@
+meta {
+  name: delete-user-comments
+  type: http
+  seq: 7
+}
+
+delete {
+  url: http://localhost:3333/delete-comment
+  body: json
+  auth: none
+}
+
+headers {
+  X-CSRF-TOKEN: g0scL2CD-QPClLlY7oiXOyCMmPgH7JCrMqWg
+}
+
+body:json {
+  {
+    "comment_id": 6,
+    "user_id": 2
+  }
+}

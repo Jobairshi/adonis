@@ -1,0 +1,24 @@
+meta {
+  name: update-user's-post
+  type: http
+  seq: 4
+}
+
+put {
+  url: http://localhost:3333/update-userpost
+  body: json
+  auth: none
+}
+
+headers {
+  X-CSRF-TOKEN: Bprei4Go-H8kMuxleDIUifdD749ETPKHCGJo
+}
+
+body:json {
+  {
+    "post_id":1,
+    "user_id":1,
+    "content":"this is edited post",
+    "category":2
+  }
+}

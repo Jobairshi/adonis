@@ -1,0 +1,23 @@
+meta {
+  name: add-user-comment
+  type: http
+  seq: 6
+}
+
+post {
+  url: http://localhost:3333/add-comment
+  body: json
+  auth: none
+}
+
+headers {
+  X-CSRF-TOKEN: g0scL2CD-QPClLlY7oiXOyCMmPgH7JCrMqWg
+}
+
+body:json {
+  {
+    "user_id": 2,
+    "post_id": 2,
+     "content":"this is jesan"
+  }
+}

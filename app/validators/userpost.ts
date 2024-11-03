@@ -1,3 +1,6 @@
+import { ReactionType } from '#models/reaction'
+
+const reactionEnum = vine.enum(Object.values(ReactionType))
 import vine, { SimpleMessagesProvider } from '@vinejs/vine'
 
 vine.messagesProvider = new SimpleMessagesProvider({
@@ -21,14 +24,39 @@ export const createUserPostValidator = vine.compile(
 
 export const deletePostValidator = vine.compile(
   vine.object({
-    id: vine.string().trim(),
+    post_id: vine.number(),
+    user_id: vine.number(),
   })
 )
 
 export const updateValidator = vine.compile(
   vine.object({
-    id: vine.string().trim(),
+    post_id: vine.number(),
+    user_id: vine.number(),
     content: vine.string().trim().minLength(5).maxLength(200),
     category: vine.number(),
+  })
+)
+
+export const createCommentValidator = vine.compile(
+  vine.object({
+    user_id: vine.number(),
+    post_id: vine.number(),
+    content: vine.string().trim().minLength(5).maxLength(200),
+  })
+)
+
+export const deleteCommentValidator = vine.compile(
+  vine.object({
+    comment_id: vine.number(),
+    user_id: vine.number(),
+  })
+)
+
+export const toggleReactionValidator = vine.compile(
+  vine.object({
+    reaction: reactionEnum,
+    post_id: vine.number(),
+    user_id: vine.number(),
   })
 )
